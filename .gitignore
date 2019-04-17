@@ -7,3 +7,4 @@ project/target
 /bin/
 project/project
 .cache-tests
+.idea
