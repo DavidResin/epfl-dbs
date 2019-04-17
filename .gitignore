@@ -7,3 +7,5 @@ project/target
 /bin/
 project/project
 .cache-tests
+.idea
+src/main/resources/*.tbl
