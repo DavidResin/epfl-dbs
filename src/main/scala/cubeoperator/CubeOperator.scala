@@ -29,8 +29,26 @@ class CubeOperator(reducers: Int) {
 
   def cube_naive(dataset: Dataset, groupingAttributes: List[String], aggAttribute: String, agg: String): RDD[(String, Double)] = {
 
+    var map:Map[List[String], Any] = Map()
+
+    // Map step in naive algo
+    dataset.getRDD().collect().foreach(tuple => {
+      val reduced = tuple.getValuesMap(groupingAttributes).values.toList
+      var attributes:List[List[String]] = List(List())
+      reduced.foreach(x => attributes = attributes ::: List(List(x, "*")))
+      val comb = generateCombinations(attributes)
+      comb.foreach(x => map += (x -> tuple))
+    })
+
+    map.foreach(x => print(x))
+
     //TODO naive algorithm for cube computation
     null
+  }
+
+  def generateCombinations(attributes: List[List[String]]): List[List[String]] = attributes match {
+    case Nil => List(Nil)
+    case head::tail => for(item <- head;items <- generateCombinations(tail)) yield item::items
   }
 
 }

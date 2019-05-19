@@ -9,3 +9,4 @@ project/project
 .cache-tests
 .idea
 src/main/resources/*.tbl
+*.zip

@@ -34,7 +34,9 @@ object Main {
 
     var groupingList = List("lo_suppkey","lo_shipmode","lo_orderdate")
 
-    val res = cb.cube(dataset, groupingList, "lo_supplycost", "SUM")
+    val res = cb.cube_naive(dataset, groupingList, "lo_supplycost", "SUM")
+
+    res.toString()
 
     /*
        The above call corresponds to the query:
@@ -45,9 +47,9 @@ object Main {
 
 
     //Perform the same query using SparkSQL
-    //    val q1 = df.cube("lo_suppkey","lo_shipmode","lo_orderdate")
-    //      .agg(sum("lo_supplycost") as "sum supplycost")
-    //    q1.show
+    val q1 = df.cube("lo_suppkey","lo_shipmode","lo_orderdate")
+      .agg(sum("lo_supplycost") as "sum supplycost")
+    q1.show
 
 
   }
